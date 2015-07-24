@@ -28,8 +28,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     point_file = os.path.abspath(args.point_map_file) if args.point_map_file else ""
-    #sys.setrecursionlimit(100)
-    world = src.world.World( args.num_points, src.player.Player(), point_file )
+    world = src.world.World( src.player.Player(),
+                             generate_points=args.num_points,
+                             point_file=point_file )
 
     if args.save_points:
         world.save_points_to_file( os.path.abspath(args.save_points) )

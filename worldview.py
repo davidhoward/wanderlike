@@ -60,7 +60,7 @@ class MainFrame(wx.Frame):
         self.Destroy()
         
 if __name__ == '__main__':
-    world = src.world.World( 1000, None )
+    world = src.world.World( None, generate_points=1000 )
     app = wx.App(False)
     frame = MainFrame(world)
     frame.Show()

@@ -158,13 +158,19 @@ class PointDistribution( object ):
         return max_coord
         
 class World( object ):
-    def __init__( self, npoints, player, point_file="" ):
-        if not point_file:
-            self.generate_points( npoints )
-        else:
+    def __init__( self, player, generate_points=0, use_points=None, point_file="" ):
+        if use_points:
+            self.points=use_points
+        elif point_file:
             self.load_points(point_file)
+            self.assign_locations()            
+        elif generate_points:
+            self.generate_points( npoints )
+            self.assign_locations()            
+        else:
+            raise ValueError("No point set specified for world!")
         
-        self.assign_locations()
+
 
         self.player = player
         self.player_pos = [ random.random(), random.random() ]
