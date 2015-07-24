@@ -1,0 +1,55 @@
+    def assign_locations_old( self, npoints ):
+        rank_max = [ 0.0 ]*6
+        l = int(math.log(npoints))
+        for i in xrange(1,6):
+            rank_max[i] = l**(6-i)
+        radii = [0.0]*6
+        radii[5] = radius_from_area( 1.0 / l )
+        for i in xrange(1,5):
+            radii[i] = radii[5]*0.2*i
+
+        ranked = [ [] for i in xrange(6) ]
+        all_shuffled = list(self.points.itervalues())
+        random.shuffle(all_shuffled)
+        allocated=[]
+        # assign ranks 1-5 locations (decreasing rank)
+        for rank in xrange(5,0,-1):
+            i = 0
+            while i < len(all_shuffled) and len(ranked[rank]) < rank_max[rank]:
+                pt = all_shuffled[i]
+                add = True
+                for pt2 in allocated:
+                    if pt.dist( pt2 ) < radii[rank]:
+                        add = False
+                        break
+                if add:
+                    ranked[rank].append(pt)
+                    allocated.append(pt)
+                    pt.assign_rank( rank )
+                    all_shuffled.pop(i)
+                else:
+                    i += 1
+        # remainder are rank 0
+        while len(all_shuffled) > 0:
+            pt = all_shuffled.pop(0)
+            pt.assign_rank(0)
+            allocated.append(pt)
+
+        # assign parents and dominion
+        for pt in allocated:
+            pt.pick_dominion( self.points, radii[pt.rank] )
+
+
+    def pick_dominion( self, points, radius ):
+        if self.parent is None and self.dominion is None:
+            self.dominion = dominion.random_dominion( self.rank )
+        for pt in points.within( self.x, self.y, radius ):
+            if pt.parent is not None:
+                continue
+            else:
+                pt.parent = self
+                pt.dominion = self.dominion
+
+        self.dominion.assign_location( self )
+        if self.loc is None:
+            raise ValueError( "Failed to assing location for point with rank %d, dominion %s" % (self.rank, str(self.dominion)) )

@@ -1,0 +1,31 @@
+# colors
+BACKGROUND_COLOR = "#aa8800"
+
+BACKGROUND_COLORS = [
+    "#010100",
+    "#010100",
+    "#010100",
+    "#010100",
+    "#010100",
+    "#010100",
+    "#443300", # 6
+    "#775500",
+    "#886600", # 8
+    "#997700",
+    BACKGROUND_COLOR,
+    BACKGROUND_COLOR,
+    BACKGROUND_COLOR, # 12
+    BACKGROUND_COLOR,
+    BACKGROUND_COLOR,
+    BACKGROUND_COLOR,
+    BACKGROUND_COLOR,
+    BACKGROUND_COLOR,
+    "#997700", # 18
+    "#886600",
+    "#775500",
+    "#443300",
+    "#010100",
+    "#010100"
+]
+BUTTON_BRUSH_COLOR = "#aa8844"
+BUTTON_PEN_COLOR = "#993300"

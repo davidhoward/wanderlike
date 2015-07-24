@@ -1,0 +1,35 @@
+NPC characters will have many attributes.
+
+
+1. Persona
+2. Ancestry
+3. Stats
+4. Holdings & Relations
+
+1 PERSONA
+=========
+A character's person encompasses their basic values and behaviors, as well as a rough description of their
+appearance.
+
+VALUES
+~~~~~~
+There are five possible values, each of which a character may hold, despise, or dismiss.
+
+The Five Values:
+- Wealth: Amass material fortunes/achievments. Opposed to people and virtue.
+- Status: Respect of and power over others. Opposed to joy and people
+- Virtue: Personal perfection; spiritual, mental, physical. Opposed to joy and wealth.
+- People: Caring for and helping others. Opposed to status and wealth.
+- Joy: Enjoy the simple pleasures of life. Opposed to status and virtue.
+
+There
+are four possible value configurations:
+
+Fanatic -  hold 1, despise opposed, dismiss others
+Follower -  hold 1, dismiss others
+Dogmatic -  hold 2 aligned, despise shared opposed, dismiss others
+Conflicted - hold 2 opposed, dismiss others.
+
+The player may be presented with ethical quadries, where they must choose one value over others.
+The NPCs privy to this quandry will like the player more or less, depending on which values
+they hold and what the player chooses.

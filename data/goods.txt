@@ -1,0 +1,112 @@
+# Name Supertype Value-Estimate
+# raw
+sugar_cane raw 3
+cotton raw 5
+flax raw 3
+wool raw 4
+silk raw 12
+furs raw 10
+hides raw 8
+herbs raw 2
+softwood lumber 5
+hardwood lumber 5
+cedarwood lumber 10
+ironwood lumber 25
+iron_ore raw 12
+mithril_ore raw 24
+minerals raw 9
+adamantine_ore raw 100
+gems raw 75
+silver_ore raw 50
+gold_ore raw 100
+clay raw 4
+# materials
+iron material 18
+mithril material 36
+alloy material 30
+admantine material 150
+tools material 15
+leather material 15
+# animals
+cow animal 5
+sheep animal 3
+pig animal 4
+chicken animal 2
+horse animal 10
+# meats
+pork meat 2
+beef meat 3
+fowl meat 1
+fish meat 1
+lamb meat 3
+mutton meat 1
+# grains
+wheat grain 1
+maize grain 1
+rice grain 1
+# fruits
+apple fruit 1
+peach fruit 1
+pear fruit 1
+dates fruit 1
+banana fruit 5
+citrus fruit 5
+ananas fruit 5
+grapes fruit 1
+# vegetables
+potato vegetable 1
+cabbage vegetable 1
+beans vegetable 1
+carrot vegetable 1
+onion vegetable 1
+turnip vegetable 1
+# cheese
+mild_cheese cheese 2
+sharp_cheese cheese 2
+soft_cheese cheese 2
+herb_cheese cheese 5
+aged_cheese cheese 5
+# treats
+sugar treat 10
+coffee treat 10
+tea treat 10
+tobacco treat 4
+spices treat 15
+honey treat 4
+olives treat 5
+# wine
+cheap_wine wine 3
+sweet_wine wine 10
+spiced_wine wine 15
+fine_wine wine 25
+aged_wine wine 100
+# spirits
+mead spirit 5
+beer spirit 3
+whiskey spirit 8
+vodka spirit 6
+rum spirit 12
+# Textiles
+linen_cloth textile 6
+wool_cloth textile 8
+cotton_cloth textile 10
+silk_cloth textile 24
+velvet textile 40
+# illicit
+poppies illict 15
+coca illicit 15
+# fuel
+firewood fuel 1
+coal fuel 4
+charcoal fuel 2
+# wares
+clay_goods wares 10
+iron_goods wares 15
+furniture wares 15
+oil wares 2
+medecine wares 10
+# treasure
+silverware treasure 20
+goldware treasure 45
+fine_art treasure 150
+jewelry treasure 100
