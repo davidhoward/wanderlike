@@ -10,32 +10,29 @@ import data
 import view
 
 class MainFrame( sp.SwitchFrame ):
-    def init_ui( self, world ):
-        self.world = world
-        self.SetSize( (800, 600) )
-        
-        self.add_panel( "map", view.MapPanel( self, self.world ) )
-        self.add_panel( "location", view.LocationPanel( self, self.world ) )
+    def init_ui( self, game ):
+        self.game = game
 
-        self.set_active( "map" )
+        
+        self.add_panel( src.MAP_MODE, view.MapPanel( self.container, self.game ) )
+        self.add_panel( src.LOC_MODE, view.LocationPanel( self.container, self.game ) )
+        self.add_panel( src.FIGHT_MODE, view.FightPanel( self.container, self.game ) )
+        self.add_panel( src.LOSE_MODE, view.LosePanel( self.container, self.game ) )
+        
+        self.SetSize( (800, 600) )        
+        self.set_active( src.MAP_MODE )
         
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--save_points", help="save point map to file")
     parser.add_argument("--point_map_file", help="load point map from specified file")
     parser.add_argument("--num_points", help="number of location points to generate",
                         type=int, default=1000 )
     args = parser.parse_args()
-    
-    point_file = os.path.abspath(args.point_map_file) if args.point_map_file else ""
-    world = src.world.World( src.player.Player(),
-                             generate_points=args.num_points,
-                             point_file=point_file )
+    game = src.engine.Engine( src.world.WorldOpts(args),
+                              src.player.PlayerOpts(args),
+                              os.path.dirname(__file__) + "/data/root.json")
 
-    if args.save_points:
-        world.save_points_to_file( os.path.abspath(args.save_points) )
-                                   
     app = wx.App(False)
-    frame = MainFrame(world)
+    frame = MainFrame(game)
     frame.Show()
     app.MainLoop()

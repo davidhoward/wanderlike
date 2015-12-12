@@ -1,0 +1,24 @@
+Core Stats
+- Fortitude: For Health
+- Strength
+- Cunning
+- Will
+
+Skill
+- Lore
+- Athletics
+- Survival
+- Thievery
+- Heal?
+- Speech?
+
+How will spells work? Special Abilities?
+
+Enemy Classes
+Beasts - High Strength, Cunning, low Will. Mid-high fort.
+Blackbloods - One high stat, mid fort. Berzerk when < half health. Character Abilities
+Villains - Variable Stats. Character Abilities
+Spirits - Immune to Cunning. variable strength, high will. Fought with will. Low fort.
+Fiends - variable strengths, hard to kill. only encountered under specific circumstances
+Elementals - 
+Constructs - either strength or cunning high, other low. immune to will. tough.

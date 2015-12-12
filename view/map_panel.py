@@ -2,8 +2,9 @@ import wx
 import switchpanel as sp
 
 class MapPanel( sp.SwitchPanel ):
-    def init_ui( self, world ):
-        self.world = world
+    def init_ui( self, engine ):
+        self.engine = engine
+        self.world = engine.world
         self.dx = 0.15
         self.dy = 0.15
         self.draw_origin = self.world.suggest_draw_origin( self.dx, self.dy )
@@ -36,6 +37,7 @@ class MapPanel( sp.SwitchPanel ):
         gc.SetBrush( bgbrush )
         X, Y = self.GetSize()
         gc.DrawRectangle( 0, 0, X, Y )
+
         gc.SetFont( self.font )
         pts = self.world.points_within( self.draw_origin, self.dx, self.dy )
         xo = self.draw_origin[0]
@@ -57,7 +59,6 @@ class MapPanel( sp.SwitchPanel ):
         y = int(Y*(y_-self.draw_origin[1])/self.dy)
         gc.SetBrush( wx.WHITE_BRUSH )
         gc.DrawEllipse( x-4, y-4, 8, 8 )
-        
 
     NO_MOVEMENT = 0
     MOVE_NORTH = 1
@@ -92,6 +93,7 @@ class MapPanel( sp.SwitchPanel ):
     
     def OnClick( self, evt ):
         x, y  = evt.GetPositionTuple()
+        print 'received click at', x, y
         X, Y = self.GetSize()
         rx = self.dx*float(x)/X
         ry = self.dy*float(y)/Y
@@ -130,10 +132,10 @@ class MapPanel( sp.SwitchPanel ):
             self.movement &= self.STOP_EAST
         elif code == wx.WXK_SPACE:
             self.reattach = True
-        
+            
 
     def OnTick( self, evt ):
-        mode = self.world.tick()
+        mode = self.engine.map_tick()
         if mode == "map" or mode is None:
             self.Refresh(eraseBackground=False)
             self.Update()

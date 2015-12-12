@@ -1,0 +1,123 @@
+Hunt wild animals for resources and food. You might be in for more than you bargained for if you run across
+a monster.
+
+moderate (0.5*danger) chance of random encouters while tracking.
+
+Set Snares/Check Snares - Set snares to capture small animals
+Search for Tracks/Track - look for a quarry
+Leave - Go back to wilderness.
+
+--- Set Snares/Check Snares ---
+Requires snare; insect, plants, berries, or nuts for bait
+best to check 4-8 hours after set
+< 4, likely nothing trapped
+> 8, eaten/escaped/sprung
+chance of sprung: 0.05*(max(0, hr-8))
+chance of catch (per hr) = 0.9*bait_quality*(max(0, hr-3))
+sprung checked befor catch
+Catch yields one corpse
+Takes 30 min
+
+--- Things to Snare ---
+Rodent (50%)
+- 1 meat
+- 1 hide
+- 1 bone
+- 1 offal
+Fowl (45%)
+- 1 meat
+- 1 bone
+- 3 feather
+Fox (5%)
+- 1 hide
+- 1 fur
+- 1 meat
+- 1 bone
+- 1 offal
+
+--- Tracking ---
+Requires a Knife
+Requires a Spear or Bow+Arrows
+Use "Search for Tracks" to pick up a trail
+- Takes 30 min
+- Survival 3 challenge to find anything
+Use "Track" to come closer to the quarry
+- Takes 30 min
+While something is tracked, can abandon trail to search for new one
+Search or Track triggers a random encounter check.
+Each track requires a cunning test + survival vs. prey.
+- Each success +1, each Failure -1
+= +3 means prey encounter, -3 means prey lost
+
+--- Quarry ---
+Buck 20% (20)
+- Strength 3
+- cunning 4
+- bone x 4
+- hide x 4
+- meat x 4
+- offal x x2
+Doe 20% (40)
+- cunning 4
+- Strength 2
+- bone x 3
+- hide x 3
+- meat x 3
+- offal x 2
+Doe + Fawn 5% (45)
+- cunning 5
+- Strength 2, viscious
+- bone x 3
+- hide x 3
+- meat x 3
+- offal x 3
+- fawn meat x 2
+- fawn bone x 2
+- fawn hide x 1
+- fawn offal x 1
+Bear 10% (55)
+- Strength 5
+- cunning 2
+- bone x 3
+- hide x 5
+- meat x 4
+- offal x 2
+She Bear + Cubs 5% (60)
+- cunning 3
+- Strength 4, viscious
+- bone x 3
+- hide x 5
+- meat x 3
+- offal x 3
+- 1d4 - 1 cubs
+- cub meat x 1
+- cub bone x 1
+- cub hide x 1
+Lone Wolf 5% (65)
+- Cunning 4
+- bone x 2
+- hide x 2
+- meat x 1
+- offal x 1
+Wolf Pack 5% (70)
+- Pack Size 3d4
+- Cunning = pack size + 2
+- bone pack size x 1.5
+- hide pack size x 1.5
+- meat pack size
+- offal pack size
+Fowl 10% (80)
+- cunning 2
+- killed on capture
+- bone x 1
+- meat x 1
+- feather x 3
+Rodent 15% (95)
+- cunning 2
+- killed on capture
+- bone x 1
+- meat x 1
+- hide x 1
+- offal x 1
+Monster 5% (100)
+- roll on monster tag for location

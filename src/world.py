@@ -6,8 +6,9 @@ import random
 import pointgraph
 import blocktree
 
+import fight
 import location
-
+import modes
 
 def area( r ):
     return math.pi*r*r
@@ -156,28 +157,27 @@ class PointDistribution( object ):
                 max_dist = dist
         self.extant.append(max_coord)
         return max_coord
+
+class WorldOpts(object):
+    def __init__(self, args, points=None):
+        self.point_file = args.point_map_file
+        self.num_points = args.num_points
+        self.use_points = points
         
 class World( object ):
-    def __init__( self, player, generate_points=0, use_points=None, point_file="" ):
-        if use_points:
-            self.points=use_points
-        elif point_file:
-            self.load_points(point_file)
-            self.assign_locations()            
-        elif generate_points:
-            self.generate_points( npoints )
+    def __init__( self, opts ):
+        if opts.use_points:
+            self.points=opts.use_points
+        elif opts.point_file:
+            self.load_points(opts.point_file)
             self.assign_locations()            
         else:
-            raise ValueError("No point set specified for world!")
-        
+            self.generate_points( opts.num_points )
+            self.assign_locations()            
 
-
-        self.player = player
         self.player_pos = [ random.random(), random.random() ]
         self.target_pos = None
         self.active_loc = None
-
-        self.time = 8
 
     #=================
     # Initialization
@@ -264,13 +264,16 @@ class World( object ):
     def get_active_loc( self ):
         return self.active_loc
 
-    def get_location_actions( self ):
-        return self.active_loc.loc.get_actions( self.player )
+    def get_fight(self):
+        return self.fight
     
-    def increment_travel( self ):
+    def get_location_actions( self, player ):
+        return self.active_loc.loc.get_actions(player)
+    
+    def increment_travel( self, player ):
         tx, ty = self.target_pos
         px, py = self.player_pos
-        s = self.player.speed
+        s = player.speed
         a = ty - py
         o = tx - px
         h = math.hypot( a, o )
@@ -302,14 +305,3 @@ class World( object ):
         return [ x, y ]
 
 
-    def tick( self ):
-        if self.target_pos is not None:
-            self.time = ( self.time + 1 ) % 24
-            new_loc = self.increment_travel()
-            if new_loc is None:
-                return "map"
-            else:
-                new_loc.arrival( self.player )
-                return new_loc.mode_request( self.player )
-        
-        

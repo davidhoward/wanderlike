@@ -1,0 +1,5 @@
+{
+    "specs": [ {"name":"raging gallblin", "s":1, "f":1},
+	       {"name":"gallblin shooter", "c":2, "f":1},
+	       {"name":"gallbin 'wizard'", "w":2, "f":1} ]
+}

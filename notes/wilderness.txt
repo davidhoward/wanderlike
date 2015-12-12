@@ -1,0 +1,64 @@
+Explore - high chance of finding town, dungeon, resources, or random encounter
+Camp - Make camp. Goes to camp panel. SEE: camp.txt. Replaced by Home/Town once developed
+Home - Go to your stead or house. SEE: home.txt
+Town - fo to town. SEE: town.txt
+Hunt - Go to hunting panel. SEE: hunt.txt
+Leave - Go to map panel
+Gather - gather from a known resource. Go to gather panel. low chance of random encounter.
+
+
+--- Location Types ---
+Attributes:
+- Elevation :(F)lat, (Hill), (M)ountain
+- Water: (D)ry, (M)oderate, (W)et
+- Temperature: (C)old, (T)emperate, (H)ot
+- Forest or no : 0% if dry, 25% if moderate, 50% if wet
+FDC: Tundra
+FDT: Scrub
+FDH: Desert
+FMC: Taiga
+FMT: Plains
+FMH: Grassland
+FWC: Permafrost
+FWT: Marsh
+FWH: Swamp
+
+HDC: Frozen Hills
+HDT: Scrub Hills
+HDH: Desert Hills
+HMC: 
+HMT
+HMH
+HWC
+HWT
+HWH
+
+MDC: Gray Crag
+MDT: Red Mountain
+MDH: Red Mountain
+MMC
+MMT
+MMH
+MWC
+MWT
+MWH
+
+--- Wilderness Resources ---
+Wood - used for fuel, tools, weapons
+Bone - used for tools, weapons, armor
+Flint - used for tools, weapons
+Clay - used for construction, gear
+Leather - from animals. Used for gear, armor
+droppings - found or from animals. used for tanning
+wood ash - used for tanning
+copper - soft enough to be worked at a campfire. for tools and weapons.
+feather - from animals or found
+insects - eat if you'r desperate, or bait
+bee hive - Wild honey! cunning taste or take damage from bees
+berries - wild berry bushes
+nuts - wild nut trees
+stone - used for building
+mushrooms - a mushroom patch. Are they edible?
+herbs - a patch of wild herbs
+
+--- Resources Needing a Town ---

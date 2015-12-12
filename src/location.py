@@ -2,6 +2,7 @@ import random
 import resource
 import itemlib
 import goods
+import modes
 
 #===============================================================================
 # Free Functions
@@ -14,127 +15,77 @@ def normalize( dist ):
 #===============================================================================
 # Classes
 #===============================================================================
-
-class LandProbs(object):
-    def __init__( self, water_in ):
-        raw_probs = { DesertLocation:0.4,
-                      PlainsLocation:0.4+0.5*water_in,
-                      ForestLocation:0.25+0.5*water_in,
-                      MarshLocation:0.0+0.1*water_in,
-                      HillsLocation:0.1 }
-
-        self.probs = normalize( raw_probs )
-
-    def accumulate( self, loc ):
-        if loc is None:
-            return
-        prefs = loc.get_land_neighbor_prefs()
-        for pref, prob in prefs.iteritems():
-            if pref in self.probs:
-                self.probs[pref] += prob
-            else:
-                self.probs[pref] = prob
-
-
-    def choose_location( self ):
-        final_probs = normalize( self.probs )
-
-        running_total = 0.0
-        table = []
-        for k, v in final_probs.iteritems():
-            running_total += v
-            table.append( (running_total, k) )
-
-        key = random.random()
-        for choice in table:
-            if key < choice[0]:
-                return choice[1]()
-        else:
-            return table[-1][1]()
-
-        
+MAX_POI = 20
 class Location(object):
     def __init__( self ):
         self.items = itemlib.Inventory()
         self.resources = []
-        self.scouted = False
-
-    def add_items( self, items ):
-        for item in items:
-            self.add_item( item, random.random() )
-
-    def add_item( self, item, hide ):
-        self.items.add_item( item, hidden=hide )
-
-    def add_resource( self, resource ):
-        self.resources.append(resource)
-
-
+        self.visited = False
+        self.stead = None
+        self.town = None
+        self.dungeon = None
+        self.poi = random.randrange(5,MAX_POI+1)
+        
+    def get_actions(self, player):
+        # name, action -> target_mode
+        ret = []
+        def make_trans(act):
+            def trans(game):
+                return act
+            return trans
+        
+        if self.poi > 0:
+            ret.append(("Explore", self.expore_action, modes.LOC_MODE))
+        camp = True
+        if self.town:
+            camp = False
+            ret.append(("Town", make_trans(modes.TOWN_MODE)))
+        if self.stead:
+            camp = False
+            ret.append(("Home", make_trans(modes.STEAD_MODE)))
+        ret.append(("Hunt", make_trans(modes.HUNT_MODE)))
+        ret.append(("Leave", make_trans(modes.MAP_MODE)))
+        ret.append(("Gather", make_mode(modes.GATHER_MODE)))
+        return ret
+    
     def get_color( self ):
-        if self.scouted:
+        if self.visited:
             return "#333333"
         else:
             return "#999999"
 
-    def scavenge( self, player ):
-        self.items.set_vis_limit( player.perception )
-        return self.items
+    def mode_request(self, player):
+        return modes.LOC_MODE
+
+
+    # resources and caches
+    def add_cache(self, game):
+        name, num = random.choice(self.bonus_resouces).gen()
+        self.items.add(game.get_items(name, num))
+        self.add_message("You stumble across %d %s" % (num, name))
+
+    def add_resource(self, game):
+        spec = random.choice(self.resources)
+        self.resources.add_spec(spec)
+        self.add_message("You find a %s, a good source of %s!")
         
-
-
-# Location implementation classes. Keep in alphabetical order.
-class DesertLocation(Location):
-    name = "Desert"
-
-    def get_land_neighbor_prefs( self ):
-        return { DesertLocation:0.5, PlainsLocation:0.4,
-                 OasisLocation:0.1 }
-    
-class ForestLocation(Location):
-    name = "Forest"
-
-    def get_land_neighbor_prefs( self ):
-        return { ForestLocation:0.4, PlainsLocation:0.5,
-                 MarshLocation:0.1 }
-    
-class HillsLocation(Location):
-    name = "Hills"
-
-    def get_land_neighbor_prefs( self ):
-        return { HillsLocation:0.34,
-                 ForestLocation:0.33,
-                 PlainsLocation:0.33}
-
-class MarshLocation(Location):
-    name = "Marsh"
-
-    def get_land_neighbor_prefs( self ):
-        return { MarshLocation:0.5,
-                 ForestLocation:0.5 }
-    
-class MountainLocation(Location):
-    name = "Mountain"
-
-    def get_land_neighbor_prefs( self ):
-        return { HillsLocation:0.5, PlainsLocation:0.25,
-                 ForestLocation:0.25 }
-
-class OasisLocation(Location):
-    name = "Oasis"
-
-    def get_land_neighbor_prefs( self ):
-        return { DesertLocation:1.0 }
-
-class OceanLocation(Location):
-    name = "Ocean"
-    def get_land_neighbor_prefs(self):
-        return { PlainsLocation:0.5, ForestLocation:0.5 }
-        
-class PlainsLocation(Location):
-    name = "Plains"
-
-    def get_land_neighbor_prefs( self ):
-        return { PlainsLocation:0.4,
-                 HillsLocation:0.1,
-                 ForestLocation:0.25,
-                 DesertLocation:0.25 }
+    # actions
+    def explore_action(self, game):
+        # search town if none
+        # search dungeon if none
+        bonus_chance = float(self.poi)/MAX_POI
+        # resource?
+        if random.random() < bonus_chance:
+            self.add_resource()
+            return modes.LOC_MODE
+        # random encounter?
+        if random.random() < self.danger():
+            game.set_fight_with_tags(or_tags=self.env_tags)
+            return modes.FIGHT_MODE
+        # cache?
+        if random.random() < bonus_chance:
+            self.add_cache(game)
+        # nothing
+        else:
+            self.add_message("You don't find anything")
+        return self.LOC_MODE

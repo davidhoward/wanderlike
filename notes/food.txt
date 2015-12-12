@@ -1,0 +1,107 @@
+Goal for food:
+-Player will want to eat 1 big meal per day, with 1 or 2 small meals/snacks between.
+- Food + rest will be the main means of healing.
+- Players profficeint in survival will be able to sustain themselves indefinitely off the land, though a series of bad fights
+will outstrip their ability to hunt.
+- Seeking well cooked food/spices will be worthwhile when going into town, but probably not possible in the field.
+
+With regards to farming and towns:
+- Farms can be plantations or steads
+- Steads can be small, medium, or large; produce various crops
+-- small: food for up to 5
+-- medium: food for up to 20
+-- large: food for up to 100
+
+=== Foods ===
+- Grains
+-- Maiz
+-- Rice
+-- Wheat
+- Fruits
+-- Apple
+-- Citrus
+-- Tomato
+-- Melon
+-- Banana
+-- Berries
+-- Grapes
+- Mushrooms
+- Vegetales
+-- Carrot
+-- Squash
+-- Cabbage
+-- Onion
+-- Beans
+-- Legumes
+-- Nuts
+- Roots
+-- Potato
+-- Yam
+- Spices
+-- Garlic
+-- Ginger
+-- Chilli
+-- Sugar
+-- Corriander
+-- Peppercorn
+-- Salt
+- Meat
+-- Fowl
+-- Chicken
+-- Beef
+-- Pork
+-- Venison
+-- Monster
+- Fish
+-- Trout
+-- Salmon
+-- Tuna
+
+- Drink
+-- Water
+-- Wine
+-- Beer
+-- Ingredients
+-- Water
+-- Vinegar
+-- Oil
+-- Honey
+-- Milk
+
+~ At a campfire, can cook any meat w/o implement
+~ Roast: requires a pot and a fire or an oven.
+- 1 to 6 meat/fish
+- 1 or 2 vegetable/nuts
+- water
+- 1 or 2 spices
+~ Cured Meat: requires a drying rack or smokehouse
+- 1 salt
+- up to 10 meat
+- wood or wood chips
+~ Soup: requires a pot and a fire or an oven
+- water or milk
+- up to 1 meat
+- 2 to 5 vegetables or roots
+- up to 2 spices
+~ Bread: Requires an oven
+- water
+- salt
+- yeast, sugar, or honey
+- 1 to 5 grain
+~ Meat Pie: Requires an oven
+- 1 meat
+- 2 grain or root | 1 bread
+- up to 2 spices
+- up to 2 vegetables
+~ Fruit Pie: Requires an oven
+- 1 grain
+- 1 egg
+- 1 milk
+- 1 sugar or honey
+- 2 fruit or nuts
+~ Ration: Keeps FOREVER. Requires 3/5 ingredients
+- cooked or cured meat
+- salt
+- nuts
+- bread
+- fruit

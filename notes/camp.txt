@@ -1,0 +1,130 @@
+A camp, a safe(ish) place to rest and craft.
+
+Leave - back to wilderness panel. SEE: wilderness.txt
+Build - build a home for yourself.
+- Need to build a hearth + hut to upgrade to Home panel
+- can also build a drying rack, work bench, lean-to
+
+Rest - recover fatigue and heal. Go to rest panel. SEE: rest.txt
+Craft - Do some simple crafting
+
+--- Camp Building ---
+Firepit: No roll to start fire
+- stone x3
+- wood x1
+- 30 min
+Cookpit:
+- firepit
+- clay or iron pot
+- wood x1
+- 1 hr
+Stone hearth:
+- stone x 6
+- wood x 4
+- clay or iron pot
+- clay or mortar x2
+- 10 hr
+Stone hearth cookpit upgrade:
+- stone x 3
+- wood x 2
+- clay x 2
+- 6 hr
+Lean-To
+- wood x 6
+- plants x 6
+- 3 hr
+Sleeping Furs
+- Lean-To upgrade
+- hide x 8
+- 1 hr
+Workbench
+- wood x 6
+- string x 4
+Camoflauge
+- Plants x 12
+- Survival 3+
+- 2 hr
+Wood Hut
+- Stone hearth upgrade
+- Wood x 50
+- Clay x 10
+- Plants x 10
+- 50 hr
+--- Camp Crafting ---
+SEE: wilderness.txt for resources
+~~ Components ~~
+String
+- offal or plants
+- 15 min
+Leather: drying rack
+- 1 hide
+- 1 dropping, offal, or wood ash
+- 4 hr, up to x10
+~~ Tools ~~
+Axe: workbench
+- 2 wood or bone for handle
+- 2 bone, flint, or copper for head
+- 90 min
+Pick: Workbench
+- 2 wood or bone for handle
+- 2 bone, fline, or copper for head
+- 90 min
+Knife: Campfire
+- 1 wood or bone for handle
+- 1 bone, flint, or copper for blade
+- 60 min
+Awl: Campfire
+- 1 bone
+- 2 hr
+Snare: Campfire
+- 1 wood or bone
+- 1 string
+- 1 hr
+Clay Pot: Campfire
+- 4 clay
+- 4 hr
+Fishing Rod: workbench
+- 2 wood or bone
+- 3 string
+~~ Weapons ~~
+Machete: workbench
+- 1 wood or bone for handle
+- 3 bone, flint, or copper for blade
+Spear: workbench
+- 3 wood or bone for handle
+- 1 wood, bone, flint, or copper for head
+Bow: campfire
+- 3 wood
+- 2 string
+Arrow: campfire
+- 1 wood or bone for shaft
+- 1 bone, flint, or copper for head
+- 1 string
+- 1 feather
+- produces 10
+~~ Armor ~~
+Awl or Needle require for all.
+workbench required for all.
+Leather Armor
+- 6 leather
+- 3 string
+Leather Jerkin
+- 4 leather
+- 2 string
+Hide Armor
+- 6 hide
+- 4 string
+Hide Jerkin
+- 4 hide
+- 2 string
+Leather Cap
+- 1 leather
+- 1 string
+Leather Shield
+- 2 wood or bone
+- 2 string
+- 2 leather
+Hide Shield
+- 2 wood or bone
+- 2 string
+- 2 hide

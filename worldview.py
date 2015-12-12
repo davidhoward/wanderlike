@@ -1,7 +1,7 @@
 import wx
 import switchpanel as sp
 import src
-
+import argparse
 
 class MapPanel( sp.DrawPanel ):
     def init_ui( self, world ):
@@ -60,8 +60,17 @@ class MainFrame(wx.Frame):
         self.Destroy()
         
 if __name__ == '__main__':
-    world = src.world.World( None, generate_points=1000 )
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--num_points", "-n", type=int, default=1000)
+    parser.add_argument("--save_file", "-f", type=str)
+    args = parser.parse_args()
+    args.point_map_file = ""
+    worldOpts = src.world.WorldOpts(args)
+    world = src.world.World( worldOpts )
     app = wx.App(False)
     frame = MainFrame(world)
     frame.Show()
     app.MainLoop()
+
+    if args.save_file:
+        world.save_points_to_file(args.save_file)

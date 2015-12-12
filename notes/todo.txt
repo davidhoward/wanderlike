@@ -1,0 +1,34 @@
+Phase 0 - Core Mechanics
+- Combat System, Stats, Health
+- Random Encounters In locations
+
+^^^ DONE ^^^
+vvv TODO vvv
+
+Phase 1 - Wilderness Survival
+SEE: food.txt, wilderness.txt
+- Need to Eat + Sleep
+-- Character/Inventory Sheet
+- Scavenege in wilderness, from defeated enemies
+-- Wilderness location panel
+- Craft tools + equipment
+- Skills
+Phase 2 - Trade
+SEE: food.txt, wilderness.txt
+- Towns, Trading
+- Build Settlements in Wilderness
+- Grow settlements and towns
+Phase 3 - Dungeon Crawler
+- Companions
+- Dungeons
+- Leveling Up
+- Craft + Find enchanted and higher tier gear
+Phase 4 - Procedural World
+- Sensical relitave position of locations
+- Land & Sea locations, modes of travel
+Phase 5 - living world
+- Named NPCs, relationships
+- Dynamic factions (control points, reputation)
+
+Refactoring:
+- invetigate different WAD formats
