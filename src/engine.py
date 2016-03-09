@@ -1,3 +1,4 @@
+
 import json
 import os
 import random
@@ -29,7 +30,20 @@ class Bestiary(object):
     def random(self):
         spec_name = random.sample(self.specs,1)[0]
         return self.from_spec(self.specs[spec_name])
-    
+
+#===============================================================================
+# Time and Such
+#===============================================================================
+HOURS_IN_DAY = 24
+DAYS_IN_MONTH = 30
+MONTHS_IN_YEAR = 12
+MONTH_NAMES = [ "Primus", "Planting", "Monsoon",
+                "Sun's Height", "Midsummer", "Harvest",
+                "Equinox", "Bonfire", "Frost",
+                "Solstice", "Midwinter", "Terminus"]
+#===============================================================================
+# Main Game Engine Class
+#===============================================================================
 class Engine(object):
     def __init__(self, world_opts, player_opts, data_root):
         self.world = world.World(world_opts)
@@ -38,6 +52,9 @@ class Engine(object):
         self.load_data(data_root)
 
         self.time = 8
+        self.day = 1
+        self.month = 1
+        self.year = random.randrange(500, 1000)
 
     #=======================================================
     # game data
@@ -71,6 +88,29 @@ class Engine(object):
     def get_location_actions(self):
         return self.world.active_loc.loc.get_actions(self.player)
     
+    def advance(self, t):
+        """ t is the number of hours to advance. Resolution up to 0.25 """
+        # advance time
+        self.time += t
+        if self.time >= HOURS_IN_DAY:
+            self.time -= HOURS_IN_DAY
+            self.day += 1
+        if self.day > DAYS_IN_MONTH:
+            self.day = 1
+            self.month += 1
+        if self.month > MONTHS_IN_YEAR:
+            self.month = 1
+            self.year += 1
+
+        # player actions
+        act_info = self.player.apply_action(self)
+        self.player.adjust_needs( t, act_info, self.world.active_loc )
+        
+        # for char in self.characters:
+        #     act_info = char.apply_action(self)
+        #     char.adjust_needs( t, act_info, self.world.active_loc )
+            
+        
     def map_tick( self ):
         if self.world.target_pos is not None:
             self.time = ( self.time + 1 ) % 24

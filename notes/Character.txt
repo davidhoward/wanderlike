@@ -1,0 +1,8 @@
+A character has:
+- nutrition needs
+- skills
+- persona
+- combatant stats
+- inventory
+
+Every "tick", the game gets an action from each character, and updates their needs accordingly.

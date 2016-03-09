@@ -1,0 +1,14 @@
+===  The Core Mechanics ===
+Each enemy has a preferred stat with which it attacks the player.
+The player and the enemy each "roll" that stat combatant with the lower roll
+takes damage equal to the difference. Combat ends when one of the combatants is
+at 0 hp or succesfully flees.
+
+to "roll" a stat, roll 1d10+2d[Stat]
+
+=== Stat Distribution ===
+06 - weak -
+08 - low -
+10 - average
+12 - Above Average
+15 - monstrous

@@ -5,7 +5,55 @@ Goal for food:
 will outstrip their ability to hunt.
 - Seeking well cooked food/spices will be worthwhile when going into town, but probably not possible in the field.
 
-With regards to farming and towns:
+=== Nutritional Needs ===
+SEE Charactert.txt
+All characters have 2500 max nutrition
+- Working day burns ~1000 nutrition
+- Resting day burns ~500 nutrition
+- Cold locations have more calorie burn (work this in?)
+- Feasted: 2000+ nutrition
+-- Full Strength
+-- Bonus on skill rolls
+-- 2x heal when resting
+-- 2x nutrition burn
+- Sated: 1000-2000 nutrition
+-- Full Strength
+-- 1x heal when resting
+-- 1x nutrition burn
+- Hungry: 500-1000 nutrition
+-- Half skill
+-- half nutrition burn
+-- half healing
+- Starving: 0-500 nutrition
+-- Half strength
+-- Half Skill
+-- no healing
+-- quarter nutrition burn
+
+All characters have 50 max water
+- lose 1 water/hour
+- lose x2 per hour if hot, x2 if dry
+- 24-40 water: Thirsty
+-- Half Skill
+- 0-24 water: Dehydrated
+-- Half Strength
+
+All characters have 50 max fatigue
+- Gain 0.5 per hour
+- +0.5 per hour of strenuous activity, +0.5 of activity in dark
+- -1 per hour while sleeping
+- 0-12 fatigue: Alert
+-- No change
+- 12-18 fatigue: Tired
+-- Half Skills
+- 18-20 fatigue: Exhausted
+-- Half Skills
+-- Half cunning
+- 21+ fatigue: Delirious
+-- No Skill
+-- Half Strength
+
+=== With regards to farming and towns ===
 - Farms can be plantations or steads
 - Steads can be small, medium, or large; produce various crops
 -- small: food for up to 5
