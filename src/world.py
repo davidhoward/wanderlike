@@ -23,13 +23,16 @@ class LocationPoint( pointgraph.Point ):
     def __init__( self, pid, x, y ):
         pointgraph.Point.__init__( self, pid, x, y )
         
-        self.loc = None
+        self.loc = location.Location()
         self.is_land = True
         self.sea_hops = -1
         self.continent_index = 0
         self.add_ref( "river_targets", set() )
-        self.water_in = 0
+        self.river_in = False
 
+    def __repr__(self):
+        return "<LocationPoint x=%f y=%f>" % (self.x, self.y)
+    
     def find_sea_hops( self, seen = None):
         if not self.is_land:
             self.sea_hops = 0
@@ -45,21 +48,29 @@ class LocationPoint( pointgraph.Point ):
             return self.sea_hops
         
     def assign_ocean( self ):
-        self.loc = location.OceanLocation()
-
-    def assign_mountain( self ):
-        self.loc = location.MountainLocation()
-
+        self.loc.terrain.height = location.HEIGHT_OCEAN
+        self.loc.terrain.water = 1.0
+        
+    def assign_mountain( self, water ):
+        self.loc.terrain.height = location.HEIGHT_MOUNTAIN
+        self.loc.terrain.water = water
             
     def decide_terrain_land( self ):
-        probs = location.LandProbs(self.water_in)
+        probs = location.LandProbs()
         for n in self.neighbors:
             probs.accumulate( n.loc )
 
-        self.loc = probs.choose_location()
+        probs.assign_terrain(self.loc.terrain)
 
+    def finish_land(self):
+        self.loc.finish( self.river_in )
+        
+    def is_mountain(self):
+        return self.loc.terrain.height == location.HEIGHT_MOUNTAIN
+    
     def push_rivers( self ):
-        self.water_in += 1
+        self.river_in = True
+        self.loc.terrain.water += 0.1
         
         if self.sea_hops <= 1:
             return
@@ -72,6 +83,15 @@ class LocationPoint( pointgraph.Point ):
             if n.sea_hops == min_hops:
                 self.river_targets.add(n)
                 n.push_rivers()
+
+    def set_temp(self):
+        lat = abs(self.y - 0.5)
+        if lat < location.THRESH_HOT:
+            self.loc.terrain.temp = location.TEMP_HOT
+        elif lat < location.THRESH_TEMPERATE:
+            self.loc.terrain.temp = location.TEMP_TEMPERATE
+        else:
+            self.loc.terrain.temp = location.TEMP_COLD
     #=================
     # Operation
     #=================    
@@ -83,7 +103,7 @@ class LocationPoint( pointgraph.Point ):
         return self.loc.get_color()
 
     def get_name( self ):
-        if self.loc.scouted:
+        if self.loc.visited:
             return self.loc.name
         else:
             return ""
@@ -124,18 +144,46 @@ class Continent( pointgraph.PointCluster ):
         if num_mountains > len(self.points):
             num_mountains = 1
 
-        mountain_points = random.sample(self.points, num_mountains)
-        for point in mountain_points:
-            point.assign_mountain()
+        non_mountains = set(self.points)
+        mountain_points = set()
+        while num_mountains > 0  and len(non_mountains) > 0:
+            range_size =  1 if num_mountains == 1 else random.randrange(1,num_mountains)
+            candidates = set(random.sample(non_mountains,1))
+            while range_size > 0:
+                m = random.sample(candidates,1)[0]
+                m.assign_mountain(0)
+                mountain_points.add(m)
+                
+                non_mountains.remove(m)
+                candidates.remove(m)
+                
+                for p in m.neighbors:
+                    if p in non_mountains:
+                        candidates.add(p)
+                range_size -= 1
+                num_mountains -= 1
 
+        # assign rest based on neighbors
+        candidates = list(mountain_points)
+        seen = set()
+        while len(candidates) > 0:
+            c = candidates[0]
+            candidates.pop(0)
+            if c in seen:
+                continue
+            seen.add(c)
+            c.set_temp()
+            if c.loc.terrain.height == location.HEIGHT_NONE:
+                c.loc.terrain.height = location.HEIGHT_FLAT
+            candidates.extend(c.neighbors)
+                
         # push rivers
         for point in mountain_points:
             point.push_rivers()
 
-        # assign rest based on neighbors
-        for point in self.points:
-            point.decide_terrain_land()
-
+        # for point in self.points:
+        #     point.finish()v
+            
 class PointDistribution( object ):
     def __init__( self, candidate_size ):
         self.extant = []
@@ -207,7 +255,7 @@ class World( object ):
     def assign_locations( self ):
         # assign continents
         num_continents = 5
-        num_seas = 7
+        num_seas = 4
         
         print 'assigning continents...'
         continents, oceans, unassigned = pointgraph.assign_clusters( self.points,
@@ -233,6 +281,7 @@ class World( object ):
         print "max tree depth", self.points.max_depth()
         max_river = 0
         for point in self.points:
+            #don't iterate twice, but keep this line if get rid of max river depth
             max_river = max(max_river, point.river_depth())
 
         print "max river depth", max_river
@@ -281,7 +330,7 @@ class World( object ):
             self.player_pos = self.target_pos
             self.active_loc = self.points[ self.target_pos ]
             self.target_pos = None
-            return self.points[ self.player_pos ]
+            return self.active_loc
         else:
             dx = s/h*o
             dy = s/h*a

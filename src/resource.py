@@ -1,63 +1,31 @@
 import random
-RAD = 0
+import action
+import itemlib
 
-resource_classes = []
+class Resource(object):
+    def __init__(self):
+        pass
 
-def get_resource_class( idx ):
-    global resource_classes
-    while len(resource_classes) <= idx:
-        resource_classes.append([])
-    return resource_classes[idx]
-
-
-def insert_resource( idx, rsc ):
-    cls = get_resource_class(idx)
+    def harvest_action(self):
+        return action.Action(self.gather_desc,
+                             modes.GATHER_MODE,
+                             self.harvest)
     
-    i = 0
-    while i < len(cls) and rsc.min_degree > cls[i].min_degree:
-        i += 1
-    cls.insert( i, rsc )
 
-def generate( idx, degree ):
-    cls = get_resource_class(idx)
-    
-    minidx = 0
-    maxidx = len(cls)
-    while minidx < maxidx:
-        idx = random.randrange(minidx, maxidx)
-        rsc_class = cls[idx]
-        if rsc_class.min_degree <= degree <= rsc_class.max_degree:
-            return rsc_class(degree)
-        elif rsc_class.min_degree > degree:
-            minidx = idx
+class ForestResource(Resource):
+    gather_desc = "Forest - Chop Wood"
+    def harvest(self, game):
+        player = game.get_player()
+        loc = game.get_location()
+        axe = player.inventory.get_item(itemlib.WOOD_AXE)
+        if axe is None:
+            n = random.randrange(2)
+            loc.items.add(itemlib.WOOD, n)
+            info = ["Without a wood axe, you gathered %d wood. (%d total)" % (n, loc.items.count(itemlib.WOOD))]
         else:
-            maxidx = idx
-    else:
-        return BogusResource( idx, degree )
-
-
-class BaseResource( object ):
-    pass
-
-
-class BogusResource( BaseResource ):
-    name = "Bogus Resource"
-    def __init__( self, idx, degree ):
-        self.idx = idx
-        self.degree = degree
-
-class RadioactivePoolResource( BaseResource ):
-    name = "Radioactive Pool"
-    min_degree = 0
-    max_degree = 250
-    def __init__( self, degree ):
-        self.rads = degree
-        
-
-class WasteDumpResource( BaseResource ):
-    name = "Radioactive Waste Dump"
-    min_degree = 200
-    max_degree = 1000
-    def __init__( self, degree ):
-        self.rads = degree
-
+            n, msg = axe.roll_gather(item.lib.WOOD)
+            info = ["You gathered %d wood. (%d total)" % (n, loc.items.count(itemlib.WOOD))]
+            if msg:
+                info.append(msg)
+        return modes.GATHER_MODE, info
+            

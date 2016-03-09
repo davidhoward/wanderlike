@@ -1,6 +1,6 @@
 import json
-import random
 import os
+import random
 
 import combatant
 import fight
@@ -65,6 +65,12 @@ class Engine(object):
     #=========================================================
     # operations
     #=========================================================
+    def get_location_resource_actions(self):
+        return self.world.active_loc.get_resource_actions()
+
+    def get_location_actions(self):
+        return self.world.active_loc.loc.get_actions(self.player)
+    
     def map_tick( self ):
         if self.world.target_pos is not None:
             self.time = ( self.time + 1 ) % 24
@@ -73,11 +79,36 @@ class Engine(object):
                 return modes.MAP_MODE
             else:
                 #new_loc.arrival( self.player )
-                #return new_loc.mode_request( self.player )
-                self.fight = fight.Fight(self.bestiary.random(),
-                                         parent_mode=modes.MAP_MODE)
-                return modes.FIGHT_MODE
+                return new_loc.mode_request( self.player )
+                # self.fight = fight.Fight(self.bestiary.random(),
+                #                          parent_mode=modes.MAP_MODE)
+                # return modes.FIGHT_MODE
         else:
             return None
         
         
+
+    #==========================================================
+    # info
+    #==========================================================
+    def get_location_info(self):
+        lines = [ self.world.active_loc.get_name() ]
+        lines.append(self.get_time_info())
+        lines.extend(self.player.get_status_info())
+        return "\n".join(lines)
+
+    def get_time_info(self):
+        if self.time < 4:
+            return "Midnight"
+        elif self.time < 8:
+            return "Early Morning"
+        elif self.time < 11:
+            return "Morning"
+        elif self.time < 14:
+            return "Mid Day"
+        elif self.time < 18:
+            return "Afternoon"
+        elif self.time < 21:
+            return "Evening"
+        else:
+            return "Night"

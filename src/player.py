@@ -18,3 +18,5 @@ class Player( combatant.Combatant ):
     def add_exp(self, enemy):
         pass
     
+    def get_status_info(self):
+        return []

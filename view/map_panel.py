@@ -93,7 +93,6 @@ class MapPanel( sp.SwitchPanel ):
     
     def OnClick( self, evt ):
         x, y  = evt.GetPositionTuple()
-        print 'received click at', x, y
         X, Y = self.GetSize()
         rx = self.dx*float(x)/X
         ry = self.dy*float(y)/Y
